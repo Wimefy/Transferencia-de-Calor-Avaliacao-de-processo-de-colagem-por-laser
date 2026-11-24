@@ -1,0 +1,159 @@
+{
+  "benchmark_11A": {
+    "Bi": 5.808,
+    "q_tilde": 174.24,
+    "T_max_pulso": 152.2313,
+    "t_90_borda": 9.2983,
+    "T_borda_10s": 93.8265
+  },
+  "grupo_15C_base": {
+    "alpha": 1.7570832418185813e-05,
+    "Bi_y": 0.003125,
+    "Bi": 8.712,
+    "q_tilde": 185.856,
+    "t_tilde_L": 0.040337,
+    "t_tilde_final": 0.121011,
+    "T_max_pulso": 147.8019,
+    "T_centro_10s": 147.8019,
+    "T_11mm_10s": 136.2859,
+    "T_borda_10s": 91.0217,
+    "T_44mm_10s": 30.6413,
+    "delta_T_pel_10s": 56.7802,
+    "t_90_centro": 4.0582,
+    "t_90_borda": 9.775756586199025,
+    "tempo_janela_pulso": 0.2243,
+    "tempo_janela_total": 0.4795,
+    "violou_200": false,
+    "T_centro_15s": 98.6982,
+    "T_borda_15s": 71.0948,
+    "T_centro_20s": 69.8609,
+    "T_borda_20s": 56.3818,
+    "T_centro_30s": 43.0206,
+    "T_borda_30s": 39.1758
+  },
+  "convergencia": {
+    "espacial": [
+      {
+        "N": 100,
+        "Nt": 3000,
+        "T_centro_10s": 147.88885481285297,
+        "T_borda_10s": 91.37953655941591,
+        "erro_centro_pct": 0.08058944854187877,
+        "erro_borda_pct": 0.5747561451692984
+      },
+      {
+        "N": 200,
+        "Nt": 3000,
+        "T_centro_10s": 147.80189387388077,
+        "T_borda_10s": 91.02170417646616,
+        "erro_centro_pct": 0.1393436107409095,
+        "erro_borda_pct": 0.9640946477869098
+      },
+      {
+        "N": 400,
+        "Nt": 3000,
+        "T_centro_10s": 148.00813375164054,
+        "T_borda_10s": 91.9077821854154,
+        "erro_centro_pct": 0.0,
+        "erro_borda_pct": 0.0
+      }
+    ],
+    "temporal": [
+      {
+        "N": 200,
+        "Nt": 1500,
+        "T_centro_10s": 147.76633889882876,
+        "T_borda_10s": 91.00452212718055,
+        "erro_centro_pct": 0.036086364026845515,
+        "erro_borda_pct": 0.02831829732651567
+      },
+      {
+        "N": 200,
+        "Nt": 3000,
+        "T_centro_10s": 147.80189387388077,
+        "T_borda_10s": 91.02170417646616,
+        "erro_centro_pct": 0.012033426924156617,
+        "erro_borda_pct": 0.009443209341547642
+      },
+      {
+        "N": 200,
+        "Nt": 6000,
+        "T_centro_10s": 147.81968164725131,
+        "T_borda_10s": 91.03030035829323,
+        "erro_centro_pct": 0.0,
+        "erro_borda_pct": 0.0
+      }
+    ]
+  },
+  "solucoes": {
+    "limites_A": {
+      "q_min_90": 78762.0,
+      "q_max_200": 114004.8
+    },
+    "A": {
+      "T_max_pulso": 186.1775,
+      "t_Tmax": 10.0,
+      "T_centro_10s": 186.1775,
+      "T_borda_10s": 111.6535,
+      "delta_T_pel_10s": 74.524,
+      "t_90_centro": 2.9473,
+      "t_90_borda": 6.7724,
+      "tempo_janela_pulso": 3.2277,
+      "tempo_janela_total": 7.2655,
+      "margem_200": 13.8225,
+      "violou_200": false
+    },
+    "B": {
+      "T_max_pulso": 155.7598,
+      "t_Tmax": 10.0,
+      "T_centro_10s": 155.7598,
+      "T_borda_10s": 129.6952,
+      "delta_T_pel_10s": 26.0645,
+      "t_90_centro": 3.9854,
+      "t_90_borda": 4.8803,
+      "tempo_janela_pulso": 5.1197,
+      "tempo_janela_total": 9.897,
+      "margem_200": 44.2402,
+      "violou_200": false
+    },
+    "C": {
+      "T_max_pulso": 171.3701,
+      "t_Tmax": 10.0,
+      "T_centro_10s": 171.3701,
+      "T_borda_10s": 140.7605,
+      "delta_T_pel_10s": 30.6096,
+      "t_90_centro": 1.632,
+      "t_90_borda": 1.7631,
+      "tempo_janela_pulso": 8.2368,
+      "tempo_janela_total": 14.3445,
+      "margem_200": 28.6299,
+      "violou_200": false
+    },
+    "D": {
+      "T_max_pulso": 162.648,
+      "t_Tmax": 10.0,
+      "T_centro_10s": 162.648,
+      "T_borda_10s": 105.5996,
+      "delta_T_pel_10s": 57.0484,
+      "t_90_centro": 2.2859,
+      "t_90_borda": 6.0879,
+      "tempo_janela_pulso": 3.9123,
+      "tempo_janela_total": 6.9155,
+      "margem_200": 37.352,
+      "violou_200": false
+    },
+    "h100_ref": {
+      "T_max_pulso": 160.7134,
+      "t_Tmax": 10.0,
+      "T_centro_10s": 160.7134,
+      "T_borda_10s": 98.4149,
+      "delta_T_pel_10s": 62.2985,
+      "t_90_centro": 3.8519,
+      "t_90_borda": 8.5803,
+      "tempo_janela_pulso": 1.4198,
+      "tempo_janela_total": 4.0145,
+      "margem_200": 39.2866,
+      "violou_200": false
+    }
+  }
+}
