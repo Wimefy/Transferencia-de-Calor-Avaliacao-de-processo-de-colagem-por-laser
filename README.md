@@ -58,7 +58,8 @@ Transcal/
 └── overleaf/                              # Projeto LaTeX pronto para compilação no Overleaf
     ├── main.tex                           # Relatório técnico completo em LaTeX (EPUSP)
     ├── simulacao.py                       # Cópia local do código incluída no Apêndice A
-    └── figuras/                           # Figuras em 300 DPI (.pdf e .png)
+    └── figuras/                           # Figuras em 300 DPI (.pdf e .png) e logotipo EPUSP
+        ├── logo_poli_usp.png              # Logotipo oficial da Escola Politécnica da USP
         ├── fig_superficie_3d.{pdf,png}
         ├── fig_perfis_espaciais.{pdf,png}
         ├── fig_evolucao_temporal.{pdf,png}

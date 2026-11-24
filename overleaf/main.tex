@@ -29,6 +29,8 @@
     labelfont = bf
 }
 
+\newcommand{\cab}[2]{\begin{tabular}[c]{@{}c@{}}#1\\#2\end{tabular}}
+
 % Configuracao do pacote listings com suporte UTF-8 completo para pdflatex
 \definecolor{codebg}{rgb}{0.97,0.97,0.98}
 \definecolor{codekw}{rgb}{0.08,0.32,0.65}
@@ -72,15 +74,16 @@
 % =========================================================================
 \begin{titlepage}
     \centering
-    \vspace*{0.8cm}
+    \vspace*{0.2cm}
+    \includegraphics[width=0.28\textwidth]{figuras/logo_poli_usp.png}\\[0.6cm]
     {\large \textsc{Universidade de São Paulo}}\\[0.2cm]
     {\Large \textbf{Escola Politécnica da USP}}\\[0.2cm]
-    {\normalsize Departamento de Engenharia Mecânica (PME)}\\[2.2cm]
+    {\normalsize Departamento de Engenharia Mecânica (PME)}\\[1.5cm]
 
     \rule{\linewidth}{0.8pt}\\[0.5cm]
     {\LARGE \textbf{PME 3361 -- Transferência de Calor}}\\[0.3cm]
     {\Large \textbf{Projeto I -- Avaliação de Processo de Colagem por Laser}}\\[0.3cm]
-    \rule{\linewidth}{0.8pt}\\[1.6cm]
+    \rule{\linewidth}{0.8pt}\\[1.2cm]
 
     {\Large \textbf{Grupo 15C}}\\[0.6cm]
     \begin{tabular}{ll}
@@ -118,43 +121,49 @@ A Figura~\ref{fig:esquema} ilustra o domínio físico do problema e o aproveitam
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=1.05, >=Stealth]
+    \begin{tikzpicture}[scale=1.02, >=Stealth]
         % Eixo de simetria
-        \draw[dash pattern=on 5pt off 3pt on 1pt off 3pt, thick, gray!80!black] (0, -1.2) -- (0, 2.3) node[above, black, font=\footnotesize] {Eixo de simetria ($x = 0$)};
+        \draw[dash pattern=on 5pt off 3pt on 1pt off 3pt, thick, gray!80!black]
+            (0, -1.10) -- (0, 2.40) node[above, black, font=\footnotesize] {Eixo de simetria ($x = 0$)};
 
-        % Chapa de aco (-6.6 a +6.6 cm -> escala 1:10 mm, entao w2/2 = 5.4 cm visual)
-        \fill[gray!25] (-5.4, 0) rectangle (5.4, 0.35);
-        \draw[thick] (-5.4, 0) rectangle (5.4, 0.35);
+        % Chapa de aco (-6.6 a +6.6 cm -> representado em [-5.4, +5.4])
+        \fill[gray!25] (-5.4, 0) rectangle (5.4, 0.36);
+        \draw[thick] (-5.4, 0) rectangle (5.4, 0.36);
 
-        % Pelicula plastica central (-w1/2 a +w1/2 -> -1.8 a +1.8)
-        \fill[teal!45] (-1.8, 0.35) rectangle (1.8, 0.50);
-        \draw[thick, teal!60!black] (-1.8, 0.35) rectangle (1.8, 0.50);
-        \node[teal!50!black, font=\footnotesize, anchor=west] at (1.9, 0.55) {Película ($w_1 = \SI{44}{mm}$)};
+        % Pelicula plastica central (-w1/2 a +w1/2 -> [-1.8, +1.8])
+        \fill[teal!45] (-1.8, 0.36) rectangle (1.8, 0.52);
+        \draw[thick, teal!60!black] (-1.8, 0.36) rectangle (1.8, 0.52);
+        \node[teal!50!black, font=\footnotesize, anchor=center] (pel) at (-3.35, 1.36) {Película ($w_1 = \SI{44}{mm}$)};
+        \draw[->, thin, teal!60!black] (pel.south east) -- (-1.65, 0.53);
 
-        % Setas do laser q''
+        % Setas e rotulo do laser q''
         \foreach \x in {-1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5} {
-            \draw[->, red!80!black, thick] (\x, 1.65) -- (\x, 0.56);
+            \draw[->, red!80!black, thick] (\x, 1.52) -- (\x, 0.56);
         }
-        \node[red!80!black, font=\small\bfseries] at (1.15, 1.85) {$q''$ ($\Delta t_L = \SI{10}{s}$)};
+        \node[red!80!black, font=\small\bfseries, fill=white, inner sep=2pt] at (0, 1.88) {$q''\;(\Delta t_L = \SI{10}{s})$};
 
-        % Conveccao superior e inferior
-        \draw[->, blue!70!black] (-4.2, 1.1) -- (-4.2, 0.42);
-        \draw[->, blue!70!black] (4.2, 1.1) -- (4.2, 0.42);
-        \node[blue!70!black, font=\footnotesize] at (4.2, 1.32) {Convecção: $h, T_\infty$};
+        % Conveccao na face superior
+        \draw[->, blue!70!black] (-4.6, 0.88) -- (-4.6, 0.42);
+        \draw[->, blue!70!black] (3.3, 1.02) -- (3.3, 0.42);
+        \draw[->, blue!70!black] (4.3, 1.02) -- (4.3, 0.42);
+        \node[blue!70!black, font=\footnotesize] at (3.8, 1.25) {Convecção: $h, T_\infty$};
 
-        \foreach \x in {-4.0, -2.0, 0.0, 2.0, 4.0} {
-            \draw[->, blue!70!black] (\x, -0.65) -- (\x, -0.05);
+        % Conveccao na face inferior (fora da faixa central da cota w1)
+        \foreach \x in {-4.4, -2.7, 2.7, 4.4} {
+            \draw[->, blue!70!black] (\x, -0.78) -- (\x, -0.06);
         }
-        \node[blue!70!black, font=\footnotesize] at (2.8, -0.88) {Convecção na face inferior: $h, T_\infty$};
+        \node[blue!70!black, font=\footnotesize] at (3.55, -1.00) {Convecção: $h, T_\infty$};
 
-        % Extremidades a T_inf
-        \node[font=\footnotesize, anchor=east] at (-5.45, 0.17) {$T = T_\infty$};
-        \node[font=\footnotesize, anchor=west] at (5.45, 0.17) {$T = T_\infty$};
+        % Extremidades a T_inf (acima das pontas, sem conflito com d)
+        \node[font=\footnotesize, anchor=south] at (-5.4, 0.52) {$T = T_\infty$};
+        \node[font=\footnotesize, anchor=south] at (5.4, 0.52) {$T = T_\infty$};
 
-        % Cotas
-        \draw[<->, thin] (-1.8, -0.25) -- (1.8, -0.25) node[midway, below, font=\footnotesize] {$w_1 = \SI{44}{mm}$};
-        \draw[<->, thin] (-5.4, -1.35) -- (5.4, -1.35) node[midway, below, font=\footnotesize] {$w_2 = \SI{132}{mm}$ ($L = w_2/2 = \SI{66}{mm}$)};
-        \draw[<->, thin] (-5.75, 0) -- (-5.75, 0.35) node[midway, left, font=\footnotesize] {$d$};
+        % Cotas geometricas
+        \draw[<->, thin] (-5.75, 0) -- (-5.75, 0.36) node[midway, left=2pt, font=\footnotesize] {$d$};
+        \draw[<->, thin] (-1.8, -0.40) -- (1.8, -0.40)
+            node[midway, fill=white, inner sep=2pt, font=\footnotesize] {$w_1 = \SI{44}{mm}$};
+        \draw[<->, thin] (-5.4, -1.48) -- (5.4, -1.48)
+            node[midway, below=2pt, font=\footnotesize] {$w_2 = \SI{132}{mm}$ ($L = w_2/2 = \SI{66}{mm}$)};
     \end{tikzpicture}
     \caption{Representação esquemática da seção transversal da chapa de aço, película polimérica, incidência do feixe laser e trocas convectivas com o ambiente.}
     \label{fig:esquema}
@@ -341,9 +350,10 @@ Para comprovar a independência dos resultados do Grupo 15C em relação à disc
     \centering
     \caption{Estudo de convergência espacial e temporal para o caso base do Grupo 15C.}
     \label{tab:convergencia}
-    \begin{tabular}{cccccc}
+    \small
+    \begin{tabular}{lccccc}
         \toprule
-        \textbf{Refinamento} & $N$ & $N_t$ & $T(0, \SI{10}{s})$ [\si{\celsius}] & $T(\SI{22}{mm}, \SI{10}{s})$ [\si{\celsius}] & \textbf{Desvio relativo máx.} \\
+        \textbf{Refinamento} & $N$ & $N_t$ & \cab{$T(0, \SI{10}{s})$}{[\si{\celsius}]} & \cab{$T(\SI{22}{mm}, \SI{10}{s})$}{[\si{\celsius}]} & \cab{\textbf{Desvio relativo}}{máximo} \\
         \midrule
         Espacial & 100 & 3000 & \num{147,89} & \num{91,38} & \SI{0,57}{\percent} \\
         Espacial (base) & 200 & 3000 & \num{147,80} & \num{91,02} & \SI{0,96}{\percent} \\
@@ -442,16 +452,23 @@ A Tabela~\ref{tab:solucoes} compara quantitativamente todas as configurações s
     \caption{Comparação quantitativa entre o caso base e as soluções de engenharia simuladas para o Grupo 15C.}
     \label{tab:solucoes}
     \footnotesize
+    \setlength{\tabcolsep}{4pt}
     \begin{tabular}{lcccccc}
         \toprule
-        \textbf{Cenário} & $T_{\max}$ [\si{\celsius}] & $T_{\text{borda}}(\SI{10}{s})$ [\si{\celsius}] & $\Delta T_{\text{pel}}$ [\si{\celsius}] & $t_{90,\text{borda}}$ [\si{s}] & \textbf{Janela útil} [\si{s}] & \textbf{Margem \SI{200}{\celsius}} [\si{\celsius}] \\
+        \textbf{Cenário} &
+        \cab{$T_{\max}$}{[\si{\celsius}]} &
+        \cab{$T_{\text{borda}}(\SI{10}{s})$}{[\si{\celsius}]} &
+        \cab{$\Delta T_{\text{pel}}$}{[\si{\celsius}]} &
+        \cab{$t_{90,\text{borda}}$}{[\si{s}]} &
+        \cab{\textbf{Janela útil}}{[\si{s}]} &
+        \cab{\textbf{Margem \SI{200}{\celsius}}}{[\si{\celsius}]} \\
         \midrule
         Caso base ($80\text{ kW/m}^2$, $44\text{ mm}$) & \num{147,80} & \num{91,02} & \num{56,78} & \num{9,78} & \num{0,22} & \num{52,20} \\
         Sol. A ($105\text{ kW/m}^2$, $44\text{ mm}$) & \num{186,18} & \num{111,65} & \num{74,52} & \num{6,77} & \num{3,23} & \num{13,82} \\
         Sol. B ($w_L=\SI{60}{mm}$, $80\text{ kW/m}^2$) & \num{155,76} & \num{129,70} & \num{26,06} & \num{4,88} & \num{5,12} & \num{44,24} \\
         \textbf{Sol. C (2 estágios + $\SI{60}{mm}$)} & \textbf{\num{171,37}} & \textbf{\num{140,76}} & \textbf{\num{30,61}} & \textbf{\num{1,76}} & \textbf{\num{8,24}} & \textbf{\num{28,63}} \\
         Sol. D (pré-aquec. $T_0=\SI{55}{\celsius}$) & \num{162,65} & \num{105,60} & \num{57,05} & \num{6,09} & \num{3,91} & \num{37,35} \\
-        Ref. carenagem ($h=\SI{100}{W/(m^2.K)}$) & \num{160,71} & \num{98,41} & \num{62,30} & \num{8,58} & \num{1,42} & \num{39,29} \\
+        Carenagem ($h=\SI{100}{W/(m^2.K)}$) & \num{160,71} & \num{98,41} & \num{62,30} & \num{8,58} & \num{1,42} & \num{39,29} \\
         \bottomrule
     \end{tabular}
 \end{table}
