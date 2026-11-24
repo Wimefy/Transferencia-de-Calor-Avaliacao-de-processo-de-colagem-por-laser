@@ -554,10 +554,10 @@ def gerar_figuras(res_base: dict, met_base: dict, solucoes: dict, dir_fig: str) 
     ax.set_xlabel("Posição x [m]", labelpad=10)
     ax.set_ylabel("Tempo t [s]", labelpad=10)
     ax.set_zlabel("Temperatura T [°C]", labelpad=8)
-    ax.set_title("Grupo 15C: Evolução espaço-temporal T(x, t) na meia chapa", pad=12)
     ax.set_xlim(0.0, L_MEIO)
     ax.set_ylim(0.0, T_FINAL_PADRAO)
     ax.set_zlim(20.0, 220.0)
+    ax.xaxis.set_major_formatter(FuncFormatter(lambda v, _pos=None: f"{v:.2f}".replace(".", ",")))
     ax.view_init(elev=25, azim=-128)
 
     cbar = fig.colorbar(surf, ax=ax, shrink=0.68, aspect=18, pad=0.08)
@@ -568,7 +568,8 @@ def gerar_figuras(res_base: dict, met_base: dict, solucoes: dict, dir_fig: str) 
     ax.legend(handles=[patch_90, patch_200], loc="upper left", frameon=True)
 
     for ext in ("pdf", "png"):
-        fig.savefig(os.path.join(dir_fig, f"fig_superficie_3d.{ext}"), bbox_inches="tight", dpi=300)
+        fig.savefig(os.path.join(dir_fig, f"fig_superficie_3d.{ext}"),
+                    bbox_inches="tight", pad_inches=0.15, dpi=300)
     plt.close(fig)
 
     # -------------------------------------------------------------------------
@@ -600,14 +601,14 @@ def gerar_figuras(res_base: dict, met_base: dict, solucoes: dict, dir_fig: str) 
 
     ax.set_xlabel("Posição x [mm]")
     ax.set_ylabel("Temperatura T [°C]")
-    ax.set_title("Grupo 15C: Perfis espaciais de temperatura na meia chapa")
     ax.set_xlim(0.0, 66.0)
     ax.set_ylim(20.0, 222.0)
     ax.yaxis.set_major_formatter(FuncFormatter(formatar_virgula))
     ax.legend(loc="upper right", ncol=2, frameon=True, framealpha=0.95)
 
     for ext in ("pdf", "png"):
-        fig.savefig(os.path.join(dir_fig, f"fig_perfis_espaciais.{ext}"), bbox_inches="tight", dpi=300)
+        fig.savefig(os.path.join(dir_fig, f"fig_perfis_espaciais.{ext}"),
+                    bbox_inches="tight", pad_inches=0.15, dpi=300)
     plt.close(fig)
 
     # -------------------------------------------------------------------------
@@ -652,14 +653,14 @@ def gerar_figuras(res_base: dict, met_base: dict, solucoes: dict, dir_fig: str) 
 
     ax.set_xlabel("Tempo t [s]")
     ax.set_ylabel("Temperatura T [°C]")
-    ax.set_title("Grupo 15C: Histórico temporal de temperatura em posições estratégicas")
     ax.set_xlim(0.0, 30.0)
     ax.set_ylim(20.0, 215.0)
     ax.yaxis.set_major_formatter(FuncFormatter(formatar_virgula))
     ax.legend(loc="upper right", frameon=True, framealpha=0.95)
 
     for ext in ("pdf", "png"):
-        fig.savefig(os.path.join(dir_fig, f"fig_evolucao_temporal.{ext}"), bbox_inches="tight", dpi=300)
+        fig.savefig(os.path.join(dir_fig, f"fig_evolucao_temporal.{ext}"),
+                    bbox_inches="tight", pad_inches=0.15, dpi=300)
     plt.close(fig)
 
     # -------------------------------------------------------------------------
@@ -729,7 +730,8 @@ def gerar_figuras(res_base: dict, met_base: dict, solucoes: dict, dir_fig: str) 
 
     fig.tight_layout()
     for ext in ("pdf", "png"):
-        fig.savefig(os.path.join(dir_fig, f"fig_comparacao_solucoes.{ext}"), bbox_inches="tight", dpi=300)
+        fig.savefig(os.path.join(dir_fig, f"fig_comparacao_solucoes.{ext}"),
+                    bbox_inches="tight", pad_inches=0.15, dpi=300)
     plt.close(fig)
     print(f"Figuras salvas com sucesso em {dir_fig} (300 DPI, PDF e PNG).")
 
