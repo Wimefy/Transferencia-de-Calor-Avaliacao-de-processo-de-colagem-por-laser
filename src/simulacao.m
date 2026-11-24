@@ -127,11 +127,21 @@ met_C = calcular_metricas(res_C, p_fixos);
 res_D = resolver_placa(h_15C, q_15C, Tinf_15C, 200, 3000, p_fixos.w1, 55.0, p_fixos);
 met_D = calcular_metricas(res_D, p_fixos);
 
+res_h100 = resolver_placa(100.0, q_15C, Tinf_15C, 200, 3000, p_fixos.w1, NaN, p_fixos);
+met_h100 = calcular_metricas(res_h100, p_fixos);
+
+dT_max_por_W   = (met_15C.T_max_pulso - Tinf_15C) / q_15C;
+dT_borda_por_W = (met_15C.T_borda_10s - Tinf_15C) / q_15C;
+q_min_90       = (90.0 - Tinf_15C) / dT_borda_por_W;
+q_max_200      = (200.0 - Tinf_15C) / dT_max_por_W;
+
 fprintf('SOLUCOES DE ENGENHARIA - GRUPO 15C\n');
+fprintf('  Limites Sol. A (w=44mm): q_min(90C)=%.1f W/m^2 | q_max(200C)=%.1f W/m^2\n', q_min_90, q_max_200);
 imprimir_resumo('Sol. A (q=105 kW/m2, w=44mm) ', met_A);
 imprimir_resumo('Sol. B (w_L=60 mm, q=80kW/m2)', met_B);
 imprimir_resumo('Sol. C (2 estagios + 60 mm)  ', met_C);
 imprimir_resumo('Sol. D (Pre-aquec. T0=55 C)  ', met_D);
+imprimir_resumo('Carenagem (h=100 W/(m^2.K))  ', met_h100);
 
 % -------------------------------------------------------------------------
 % 5. Graficos opcionais (ativar em MATLAB Desktop / sessao com display)
@@ -143,10 +153,12 @@ if gerar_figuras
     surf(XX, TT, res_15C.T, 'EdgeColor', 'none');
     colormap('jet'); colorbar;
     hold on;
-    surf([0, p_fixos.L], [0, p_fixos.t_final], 90*ones(2,2), 'FaceAlpha', 0.25, 'FaceColor', 'b', 'EdgeColor', 'none');
-    surf([0, p_fixos.L], [0, p_fixos.t_final], 200*ones(2,2), 'FaceAlpha', 0.25, 'FaceColor', 'r', 'EdgeColor', 'none');
-    xlabel('x [m]'); ylabel('t [s]'); zlabel('T [C]');
-    title('Grupo 15C: Superficie T(x,t)');
+    surf([0, p_fixos.L], [0, p_fixos.t_final], 90*ones(2,2), 'FaceAlpha', 0.22, 'FaceColor', 'b', 'EdgeColor', 'none');
+    surf([0, p_fixos.L], [0, p_fixos.t_final], 200*ones(2,2), 'FaceAlpha', 0.20, 'FaceColor', 'r', 'EdgeColor', 'none');
+    xlabel('Posicao x [m]'); ylabel('Tempo t [s]'); zlabel('Temperatura T [C]');
+    xlim([0, p_fixos.L]); ylim([0, p_fixos.t_final]); zlim([20, 220]);
+    xticks(0:0.01:0.06);
+    xticklabels({'0,00', '0,01', '0,02', '0,03', '0,04', '0,05', '0,06'});
     view(-128, 25);
 end
 end
